@@ -22,6 +22,9 @@ st.set_page_config(
 
 st.markdown(
     """
+    ### Created By
+    -[Kumar Saksham-250577](https://github.com/ksakiit2007-rgb)
+    -[Samruddhi Shinkar-250969](https://github.com/samruddhishinkar)
     
     <style>
     .stApp { background: #f6f4ef; color: #17201f; }
