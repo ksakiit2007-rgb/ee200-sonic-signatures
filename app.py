@@ -22,6 +22,7 @@ st.set_page_config(
 
 st.markdown(
     """
+    
     <style>
     .stApp { background: #f6f4ef; color: #17201f; }
     [data-testid="stSidebar"] { background: #17201f; }
@@ -197,11 +198,15 @@ else:
             )
             result = analyse(upload)
             rows.append(
-                {
-                    "filename": Path(upload.name).stem,
-                    "prediction": result.prediction,
-                }
-            )
+    {
+        "filename": upload.name,
+        "prediction": (
+            result.prediction
+            if result.prediction == "No confident match"
+            else Path(result.prediction).stem
+        ),
+    }
+)
         progress.empty()
         st.session_state["batch_results"] = pd.DataFrame(
             rows, columns=["filename", "prediction"]
