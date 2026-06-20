@@ -22,9 +22,6 @@ st.set_page_config(
 
 st.markdown(
     """
-    ### Created By
-    - [Saksham](https://github.com/ksakiit2007-rgb)
-    - [Samruddhi](https://github.com/samruddhishinkar)
     <style>
     .stApp { background: #f6f4ef; color: #17201f; }
     [data-testid="stSidebar"] { background: #17201f; }
@@ -201,8 +198,12 @@ else:
             result = analyse(upload)
             rows.append(
                 {
-                    "filename": Path(upload.name).stem,
-                    "prediction": result.prediction,
+                    "filename": upload.name,
+                    "prediction": (
+                        result.prediction
+                        if result.prediction == "No confident match"
+                        else Path(result.prediction).stem
+                    ),
                 }
             )
         progress.empty()
