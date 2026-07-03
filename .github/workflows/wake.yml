@@ -1,0 +1,29 @@
+name: Wake Streamlit App
+
+on:
+  schedule:
+    - cron: '0 */6 * * *' # Runs every 6 hours
+  workflow_dispatch:
+
+jobs:
+  keep-alive:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Python
+        uses: actions/setup-python@v5
+      - name: Install Selenium
+        run: pip install selenium webdriver-manager
+      - name: Run Python script
+        env:
+          URL: "https://your-app-name.streamlit.app/"
+        run: |
+          python -c "
+          from selenium import webdriver
+          from selenium.webdriver.chrome.options import Options
+          from webdriver_manager.chrome import ChromeDriverManager
+          options = Options()
+          options.add_argument('--headless')
+          driver = webdriver.Chrome(options=options)
+          driver.get('${{ env.URL }}')
+          driver.quit()
+          "
